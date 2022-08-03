@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(epson_imu_uart_driver)
+cmake_minimum_required(VERSION 3.0.2)
+project(ess_imu_ros1_uart_driver)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -8,10 +8,10 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
   std_msgs
+  geometry_msgs
+  tf2
 )
 
-## System dependencies are found with CMake's conventions
-find_package(Boost REQUIRED COMPONENTS system)
 
 ###################################
 ## catkin specific configuration ##
@@ -23,6 +23,12 @@ find_package(Boost REQUIRED COMPONENTS system)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
+  CATKIN_DEPENDS
+  roscpp
+  sensor_msgs
+  std_msgs
+  geometry_msgs
+  tf2
 )
 
 ###########
@@ -34,6 +40,7 @@ catkin_package(
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
+
 
 # Specify compiler options
 set(CMAKE_CXX_COMPILER "/usr/bin/g++")
@@ -52,12 +59,12 @@ endif ()
 
 # Refer to the readme.txt inside the src folder for more details
 # Uncomment the desired imu_model to build
-set(imu_model "G365PDF0")
+#set(imu_model "G365PDF0")
 #set(imu_model "G365PDF1")
 #set(imu_model "G365PDC0")
 #set(imu_model "G365PDC1")
 #set(imu_model "G370PDF0")
-#set(imu_model "G370PDF1")
+set(imu_model "G370PDF1")
 #set(imu_model "G325PDF0")
 #set(imu_model "G325PDF1")
 #set(imu_model "G354")
@@ -134,31 +141,27 @@ else()
 endif()
 
 # Declare a library for Epson IMU functions from C sources
-add_library(epson_imu_uart_driver_lib
+add_library(ess_imu_ros1_uart_driver
   ${lib_sources}
 )
 
 # Declare a C++ executable
-add_executable(epson_imu_uart_driver_node src/epson_imu_uart_driver_node.cpp)
-
-# Link epson C library to executable target ROS node
-target_link_libraries(epson_imu_uart_driver_node
- ${catkin_LIBRARIES}
-  epson_imu_uart_driver_lib
+add_executable(ess_imu_ros1_uart_driver_node
+  src/epson_imu_uart_driver_node.cpp
 )
 
-# Debugging
-#message(INFO "${catkin_LIBRARIES}")
-#message(INFO "${catkin_INCLUDE_DIRS}")
-#message(INFO "${wiringPi_LIB}")
-#message(INFO "${lib_sources}")
+# Link epson C library to executable target ROS node
+target_link_libraries(ess_imu_ros1_uart_driver_node
+  ${catkin_LIBRARIES}
+  ess_imu_ros1_uart_driver
+)
 
 #############
 ## Install ##
 #############
 
 ## Mark executables and/or libraries for installation
-install(TARGETS epson_imu_uart_driver_node
+install(TARGETS ess_imu_ros1_uart_driver_node
    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
