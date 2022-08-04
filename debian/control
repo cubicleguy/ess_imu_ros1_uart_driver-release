@@ -1,0 +1,12 @@
+Source: ros-melodic-ess-imu-ros1-uart-driver
+Section: misc
+Priority: optional
+Maintainer: Raymond Chow <raymond.chow@ea.epson.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin, ros-melodic-geometry-msgs, ros-melodic-roscpp, ros-melodic-sensor-msgs, ros-melodic-std-msgs, ros-melodic-tf2
+Homepage: https://wiki.ros.org/ess_sensors/ros1uart
+Standards-Version: 3.9.2
+
+Package: ros-melodic-ess-imu-ros1-uart-driver
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-geometry-msgs, ros-melodic-roscpp, ros-melodic-sensor-msgs, ros-melodic-std-msgs, ros-melodic-tf2
+Description: The Epson IMU Driver using UART interface for ROS package
